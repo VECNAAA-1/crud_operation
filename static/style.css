@@ -1,0 +1,405 @@
+:root {
+  --bg: #E7EBE9;
+  --paper: #FBFAF6;
+  --ink: #1C2B2F;
+  --ink-soft: #51625F;
+  --line: #CBD3CE;
+  --accent: #E0992F;
+  --accent-soft: #F6E3C2;
+  --done: #2F6F62;
+  --done-soft: #DCEAE5;
+  --danger: #B6452C;
+  --danger-soft: #F3DCD4;
+  --radius: 3px;
+  --shadow: 0 1px 0 rgba(28, 43, 47, 0.04), 0 6px 16px -10px rgba(28, 43, 47, 0.25);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  min-height: 100vh;
+  padding: 48px 20px 80px;
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(28,43,47,0.05) 1px, transparent 0);
+  background-size: 22px 22px;
+}
+
+.board {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ---------- Header ---------- */
+
+.board__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.header__eyebrow {
+  display: block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--ink-soft);
+  margin-bottom: 6px;
+}
+
+.header__title h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 34px;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.header__counts {
+  display: flex;
+  gap: 10px;
+}
+
+.count-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 64px;
+  padding: 8px 12px;
+  border-radius: var(--radius);
+  background: var(--paper);
+  border: 1px solid var(--line);
+}
+
+.count-chip__num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.count-chip__label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+  margin-top: 2px;
+  text-transform: uppercase;
+}
+
+.count-chip--open .count-chip__num { color: var(--accent); }
+.count-chip--done .count-chip__num { color: var(--done); }
+
+/* ---------- Intake form ---------- */
+
+.intake {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 18px 20px;
+  margin-bottom: 32px;
+}
+
+.intake__form {
+  display: flex;
+  gap: 14px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.intake__row {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 200px;
+  gap: 6px;
+}
+
+.intake__row label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+}
+
+.optional {
+  text-transform: none;
+  letter-spacing: 0;
+  opacity: 0.7;
+}
+
+.intake__row input {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 14.5px;
+  padding: 9px 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fff;
+  color: var(--ink);
+}
+
+.intake__row input:focus,
+.ticket__title-input:focus,
+.ticket__desc-input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.btn {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12.5px;
+  letter-spacing: 0.04em;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  cursor: pointer;
+  padding: 10px 16px;
+  transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.15s ease;
+}
+.btn:active { transform: translateY(1px); }
+
+.btn--issue {
+  background: var(--ink);
+  color: var(--paper);
+  text-transform: uppercase;
+}
+.btn--issue:hover { background: #2c4248; }
+
+.form-error {
+  color: var(--danger);
+  font-size: 13px;
+  margin: 10px 0 0;
+  min-height: 1em;
+}
+
+/* ---------- Queue ---------- */
+
+.queue__head {
+  display: grid;
+  grid-template-columns: 90px 1fr 200px;
+  padding: 0 18px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 8px;
+}
+
+.queue__head span:last-child { text-align: right; }
+
+.ticket-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.empty-state {
+  text-align: center;
+  color: var(--ink-soft);
+  font-size: 14px;
+  padding: 40px 0;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+  background: rgba(255,255,255,0.4);
+}
+
+/* ---------- Ticket card ---------- */
+
+.ticket {
+  position: relative;
+  display: grid;
+  grid-template-columns: 90px 1fr 200px;
+  align-items: center;
+  gap: 8px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 18px 18px 16px;
+  overflow: hidden;
+  transition: box-shadow 0.15s ease;
+}
+
+.ticket__perf {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 10px;
+  background-image: radial-gradient(circle at 11px 0px, var(--bg) 5px, transparent 5.3px);
+  background-size: 22px 10px;
+  background-repeat: repeat-x;
+}
+
+.ticket__id {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+.ticket__id::before { content: "#"; opacity: 0.6; }
+
+.ticket__body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.ticket__title-input,
+.ticket__desc-input {
+  border: 1px solid transparent;
+  background: transparent;
+  font-family: 'IBM Plex Sans', sans-serif;
+  padding: 3px 4px;
+  border-radius: 2px;
+  width: 100%;
+}
+
+.ticket__title-input {
+  font-size: 15.5px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.ticket__desc-input {
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+.ticket__title-input:disabled,
+.ticket__desc-input:disabled {
+  color: inherit;
+  -webkit-text-fill-color: var(--ink);
+  opacity: 1;
+}
+
+.ticket--editing .ticket__title-input,
+.ticket--editing .ticket__desc-input {
+  border-color: var(--line);
+  background: #fff;
+}
+
+.ticket__actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.btn--punch {
+  background: var(--accent-soft);
+  color: #8a5a12;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-transform: uppercase;
+}
+.btn--punch:hover { background: #efd2a0; }
+
+.punch-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  display: inline-block;
+}
+
+.btn--save {
+  background: var(--ink);
+  color: var(--paper);
+  text-transform: uppercase;
+}
+
+.btn--void {
+  background: transparent;
+  color: var(--danger);
+  border: 1px solid var(--danger-soft);
+  text-transform: uppercase;
+}
+.btn--void:hover { background: var(--danger-soft); }
+
+/* Completed state */
+.ticket--done {
+  background: #F6F8F4;
+}
+.ticket--done .ticket__title-input {
+  color: var(--ink-soft);
+  text-decoration: line-through;
+  text-decoration-color: var(--done);
+}
+.ticket--done .btn--punch {
+  background: var(--done-soft);
+  color: var(--done);
+}
+.ticket--done .punch-dot { background: var(--done); }
+
+.ticket__stamp {
+  position: absolute;
+  right: 26px;
+  top: 50%;
+  transform: translateY(-50%) rotate(-18deg) scale(1);
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 26px;
+  letter-spacing: 0.08em;
+  color: var(--done);
+  border: 3px solid var(--done);
+  border-radius: 6px;
+  padding: 2px 10px;
+  opacity: 0.85;
+  pointer-events: none;
+  animation: stamp-down 0.22s ease-out;
+}
+
+@keyframes stamp-down {
+  from { transform: translateY(-50%) rotate(-18deg) scale(1.8); opacity: 0; }
+  to   { transform: translateY(-50%) rotate(-18deg) scale(1); opacity: 0.85; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticket__stamp { animation: none; }
+  .btn { transition: none; }
+}
+
+/* ---------- Footer ---------- */
+
+.board__footer {
+  margin-top: 36px;
+  text-align: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-soft);
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 640px) {
+  .queue__head { display: none; }
+  .ticket {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .ticket__id { order: -1; }
+  .ticket__actions { justify-content: flex-start; flex-wrap: wrap; }
+  .ticket__stamp {
+    position: static;
+    transform: rotate(-4deg);
+    display: inline-block;
+    margin-top: 6px;
+    animation: none;
+  }
+  .header__counts { width: 100%; justify-content: flex-start; }
+}

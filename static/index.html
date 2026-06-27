@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Task Dispatch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+  <div class="board">
+
+    <header class="board__header">
+      <div class="header__title">
+        <span class="header__eyebrow">DESK 01 &middot; IN-MEMORY QUEUE</span>
+        <h1>Task Dispatch</h1>
+      </div>
+      <div class="header__counts" id="counts">
+        <div class="count-chip count-chip--open">
+          <span class="count-chip__num" id="count-open">0</span>
+          <span class="count-chip__label">open</span>
+        </div>
+        <div class="count-chip count-chip--done">
+          <span class="count-chip__num" id="count-done">0</span>
+          <span class="count-chip__label">done</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="intake">
+      <form id="intake-form" class="intake__form">
+        <div class="intake__row">
+          <label for="title">Title</label>
+          <input type="text" id="title" name="title" placeholder="What needs doing?" required maxlength="120" />
+        </div>
+        <div class="intake__row">
+          <label for="description">Notes <span class="optional">optional</span></label>
+          <input type="text" id="description" name="description" placeholder="Add detail for the next shift..." maxlength="240" />
+        </div>
+        <button type="submit" class="btn btn--issue">
+          <span>Issue ticket</span>
+        </button>
+      </form>
+      <p id="form-error" class="form-error" role="alert"></p>
+    </section>
+
+    <section class="queue">
+      <div class="queue__head">
+        <span>Ticket</span>
+        <span>Details</span>
+        <span>Status</span>
+      </div>
+      <div id="ticket-list" class="ticket-list">
+        <!-- tickets injected here -->
+      </div>
+      <p id="empty-state" class="empty-state" hidden>
+        Queue is clear. Issue a ticket above to get started.
+      </p>
+    </section>
+
+    <footer class="board__footer">
+      <span>Stored in memory for this session &middot; resets on server restart</span>
+    </footer>
+
+  </div>
+
+  <template id="ticket-template">
+    <article class="ticket">
+      <div class="ticket__perf" aria-hidden="true"></div>
+      <div class="ticket__stamp" hidden>DONE</div>
+      <div class="ticket__id"></div>
+      <div class="ticket__body">
+        <input class="ticket__title-input" maxlength="120" />
+        <input class="ticket__desc-input" maxlength="240" placeholder="No notes" />
+      </div>
+      <div class="ticket__actions">
+        <button class="btn btn--punch" type="button" title="Toggle complete">
+          <span class="punch-dot" aria-hidden="true"></span>
+          <span class="btn--punch__label">Mark done</span>
+        </button>
+        <button class="btn btn--save" type="button" hidden>Save</button>
+        <button class="btn btn--void" type="button" title="Delete ticket">Void</button>
+      </div>
+    </article>
+  </template>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>
